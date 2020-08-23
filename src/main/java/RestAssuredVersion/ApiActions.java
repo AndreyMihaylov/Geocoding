@@ -18,16 +18,16 @@ public class ApiActions extends HTTPMethods {
         return response;
     }
 
-    public String getDataByCoordinate(String lat, String lng) {
+    public ValidatableResponse getDataByCoordinate(String lat, String lng) {
         if (lat.toCharArray()[lat.length() - 1] != ',') {
             lat = new StringBuilder(lat).append(',').toString();
 
         }
         Map<String, String> queries = new HashMap<>();
-        queries.put("latlng", lat + "-" + lng);
+        queries.put("latlng", lat + lng);
         ValidatableResponse response = get(queries);
 
-        return response.extract().body().asString();
+        return response;
     }
 //    public getDataBy(){}
 //    public getDataBy(){}
