@@ -42,7 +42,7 @@ public class ApiActions extends HTTPMethods {
 
     public ArrayList<String> getPlaceIds(ValidatableResponse response) {
         ArrayList<String> placeIds = new ArrayList<>();
-        int size = response.extract().body().path("results.size()");
+        int size = response.extract().body().path("results[0].size()");
         for (int i = 0; i < size; i++) {
             String placeId = response.extract().body().path("results[" + i +"].place_id");
             placeIds.add(placeId);
