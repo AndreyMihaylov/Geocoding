@@ -26,9 +26,9 @@ public class BoundTest {
     public void setUp(){
         AddressesObj addressesObj = new AddressesObj(AddressesObj.TypeOfAddress.SHORT, AddressesObj.AddressesEnum.ADDRESS2);
         address = createString(paramsOfAddressesToList(addressesObj));
-
         apiActions = new ApiActions();
         response = apiActions.getDataByAddress(address);
+        HashMap<String, Double> boundCoordinates = apiActions.getBoundCoordinates(response);
         lat1 = boundCoordinates.get("lat1");
         lat2 = boundCoordinates.get("lat2");
         lng1 = boundCoordinates.get("lng1");
