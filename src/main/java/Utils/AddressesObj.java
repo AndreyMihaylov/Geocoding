@@ -189,7 +189,7 @@ public class AddressesObj extends YmlReader {
         ArrayList<String> list2 = null;
         for (int i = j; i < 6; i++) {
             list2 = new ArrayList<>(list);
-            list2.set(i, "-");
+            list2.set(i, null);
             combinationList.add(list2);
             combinationOfNullParams(list2, j + 1);
             j++;
