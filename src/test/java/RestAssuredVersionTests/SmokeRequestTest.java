@@ -3,6 +3,8 @@ package RestAssuredVersionTests;
 import RestAssuredVersion.ApiActions;
 import Utils.AddressesObj;
 import Utils.AddressesObj.AddressesEnum;
+import io.restassured.response.ValidatableResponse;
+import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import static Utils.CommonUtils.createString;
@@ -13,13 +15,40 @@ public class SmokeRequestTest {
     ApiActions apiActions;
 
     @Test
-    public void smokeRequest() {
+    public void smokeRequestByAddressShort() {
 
         AddressesObj addressesObj = new AddressesObj(AddressesObj.TypeOfAddress.SHORT, AddressesEnum.ADDRESS1);
         String address = createString(paramsOfAddressesToList(addressesObj));
 
         apiActions = new ApiActions();
-        System.out.println(apiActions.getDataByAddress(address));
-//        System.out.println(apiActions.getDataByCoordinate("37.09024,","95.712891"));
+        ValidatableResponse response = apiActions.getDataByAddress(address);
+        Assert.assertTrue(response.extract().statusCode()==200,"Problem with short address");
+    }
+
+    @Test
+    public void smokeRequestByAddressLong() {
+
+        AddressesObj addressesObj = new AddressesObj(AddressesObj.TypeOfAddress.LONG, AddressesEnum.ADDRESS1);
+        String address = createString(paramsOfAddressesToList(addressesObj));
+
+        apiActions = new ApiActions();
+        ValidatableResponse response = apiActions.getDataByAddress(address);
+        Assert.assertTrue(response.extract().statusCode()==200,"Problem with long address");
+
+    }
+
+    @Test
+    public void smokeRequestByLocation() {
+
+        AddressesObj addressesObj = new AddressesObj(AddressesObj.TypeOfAddress.LONG, AddressesEnum.ADDRESS1);
+        String address = createString(paramsOfAddressesToList(addressesObj));
+
+        apiActions = new ApiActions();
+
+        String lat = addressesObj.getLat();
+        String lng = addressesObj.getLng();
+        ValidatableResponse response = apiActions.getDataByCoordinate(lat,lng);
+        Assert.assertTrue(response.extract().statusCode()==200,"Problem with location of address");
+
     }
 }
