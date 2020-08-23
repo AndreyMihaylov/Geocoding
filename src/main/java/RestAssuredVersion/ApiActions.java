@@ -8,7 +8,6 @@ import java.util.Map;
 public class ApiActions extends HTTPMethods {
 
 
-
     public ValidatableResponse getDataByAddress(String address) {
 
         Map<String, String> queries = new HashMap<>();
@@ -19,9 +18,13 @@ public class ApiActions extends HTTPMethods {
     }
 
     public ValidatableResponse getDataByCoordinate(String lat, String lng) {
-        if (lat.toCharArray()[lat.length() - 1] != ',') {
-            lat = new StringBuilder(lat).append(',').toString();
+        if (lat != null
+                && lng != null &&!lat.isEmpty()
+                && !lng.isEmpty()) {
+            if (lat.toCharArray()[lat.length() - 1] != ',') {
+                lat = new StringBuilder(lat).append(',').toString();
 
+            }
         }
         Map<String, String> queries = new HashMap<>();
         queries.put("latlng", lat + lng);

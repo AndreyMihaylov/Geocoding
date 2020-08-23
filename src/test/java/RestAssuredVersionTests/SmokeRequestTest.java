@@ -41,8 +41,6 @@ public class SmokeRequestTest {
     public void smokeRequestByLocation() {
 
         AddressesObj addressesObj = new AddressesObj(AddressesObj.TypeOfAddress.LONG, AddressesEnum.ADDRESS1);
-        String address = createString(paramsOfAddressesToList(addressesObj));
-
         apiActions = new ApiActions();
 
         String lat = addressesObj.getLat();
