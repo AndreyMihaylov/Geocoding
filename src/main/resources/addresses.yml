@@ -17,3 +17,5 @@ address1:
   country:
     long_name: "United States"
     short_name: "US"
+  zip:
+    long_name: "94043"
