@@ -1,22 +1,22 @@
 package RestAssuredVersionTests;
 
 import RestAssuredVersion.ApiActions;
-import Utils.YmlReaderAddresses;
-import Utils.YmlReaderAddresses.AddressesEnum;
+import Utils.AddressesObj;
+import Utils.AddressesObj.AddressesEnum;
 import org.testng.annotations.Test;
 
 import static Utils.CommonUtils.createString;
-import static Utils.YmlReaderAddresses.paramsOfAddressesToList;
+import static Utils.AddressesObj.paramsOfAddressesToList;
 
 public class SmokeRequestTest {
 
-ApiActions apiActions;
+    ApiActions apiActions;
 
     @Test
-    public void smokeRequest(){
+    public void smokeRequest() {
 
-        YmlReaderAddresses ymlReaderAddresses = new YmlReaderAddresses(YmlReaderAddresses.TypeOfAddress.LONG,AddressesEnum.ADDRESS1);
-        String address = createString(paramsOfAddressesToList(ymlReaderAddresses));
+        AddressesObj addressesObj = new AddressesObj(AddressesObj.TypeOfAddress.SHORT, AddressesEnum.ADDRESS1);
+        String address = createString(paramsOfAddressesToList(addressesObj));
 
         apiActions = new ApiActions();
         System.out.println(apiActions.getDataByAddress(address));

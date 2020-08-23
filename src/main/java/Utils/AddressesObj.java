@@ -1,13 +1,11 @@
 package Utils;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
 
 import static Utils.CommonUtils.addComma;
 
-public class YmlReaderAddresses extends YmlReader {
+public class AddressesObj extends YmlReader {
 
     private HashMap<?, ?> addresses;
     private HashMap<String, ?> address;
@@ -18,12 +16,15 @@ public class YmlReaderAddresses extends YmlReader {
     private String county;
     private String state;
     private String country;
+    private String zip;
+    private ArrayList<ArrayList<String>> combinationList = null;
 
+    public AddressesObj(TypeOfAddress typeOfAddress, AddressesEnum addressesEnum) {
+        this.addresses = getData();
+        this.address = getDataByAddress(addressesEnum);
+        this.zip = getZipFromFile();
 
-    public YmlReaderAddresses(TypeOfAddress typeOfAddress, AddressesEnum addressesEnum) {
         if (typeOfAddress.equals(TypeOfAddress.LONG)) {
-            this.addresses = getData();
-            this.address = getDataByAddress(addressesEnum);
             this.number = getNumberFromFile();
             this.street =getStreetFromFile();
             this.city = getCityFromFile();
@@ -31,14 +32,12 @@ public class YmlReaderAddresses extends YmlReader {
             this.state = getStateFromFile();
             this.country = getCountryFromFile();
         } else if (typeOfAddress.equals(TypeOfAddress.SHORT)) {
-            this.addresses = getData();
-            this.address = getDataByAddress(addressesEnum);
-            this.number = getNumberFromFile();
-            this.street =getStreetFromFile();
-            this.city = getCityFromFile();
-            this.county = getCountyFromFile();
-            this.state = getStateFromFile();
-            this.country = getCountryFromFile();
+            this.number = getNumberFromFileShort();
+            this.street =getStreetFromFileShort();
+            this.city = getCityFromFileShort();
+            this.county = getCountyFromFileShort();
+            this.state = getStateFromFileShort();
+            this.country = getCountryFromFileShort();
         }
     }
 
@@ -64,6 +63,10 @@ public class YmlReaderAddresses extends YmlReader {
 
     public String getCountry() {
         return country;
+    }
+
+    public String getZip() {
+        return zip;
     }
 
 
@@ -105,33 +108,43 @@ public class YmlReaderAddresses extends YmlReader {
         return country.get("long_name");
     }
 
+    private String getZipFromFile() {
+        HashMap<String,String> zip = (HashMap<String,String>) address.get("zip");
+        return zip.get("long_name");
+    }
 
 
-//    private String getNumberFromFile() {
-//        return (String) address.get("number");
-//    }
-//
-//    private String getStreetFromFile() {
-//        return (String) address.get("street");
-//    }
-//
-//    private String getCityFromFile() {
-//        return (String) address.get("city");
-//    }
-//
-//    private String getCountyFromFile() {
-//        return (String) address.get("county");
-//    }
-//
-//    private String getStateFromFile() {
-//        return (String) address.get("state");
-//    }
-//
-//    private String getCountryFromFile() {
-//        return (String) address.get("country");
-//    }
+    private String getNumberFromFileShort() {
+        HashMap<String,String> number = (HashMap<String,String>) address.get("number");
+        return number.get("short_name");
+    }
 
-    public static ArrayList<String> paramsOfAddressesToList(YmlReaderAddresses obj){
+    private String getStreetFromFileShort() {
+        HashMap<String,String> street = (HashMap<String,String>) address.get("street");
+        return addComma(street.get("short_name"));
+    }
+
+    private String getCityFromFileShort() {
+        HashMap<String,String> city = (HashMap<String,String>) address.get("city");
+        return addComma(city.get("short_name"));
+    }
+
+    private String getCountyFromFileShort() {
+        HashMap<String,String> county = (HashMap<String,String>) address.get("county");
+        return addComma(county.get("short_name"));
+    }
+
+    private String getStateFromFileShort() {
+        HashMap<String,String> state = (HashMap<String,String>) address.get("state");
+        return addComma(state.get("short_name"));
+    }
+
+    private String getCountryFromFileShort() {
+        HashMap<String,String> country = (HashMap<String,String>) address.get("country");
+        return country.get("short_name");
+    }
+
+    public static ArrayList<String> paramsOfAddressesToList(AddressesObj obj){
 
         ArrayList<String> addresses = new ArrayList<>();
         addresses.add(obj.getNumber());
@@ -140,8 +153,28 @@ public class YmlReaderAddresses extends YmlReader {
         addresses.add(obj.getCounty());
         addresses.add(obj.getState());
         addresses.add(obj.getCountry());
+        addresses.add(obj.getZip());
         return addresses;
     }
+
+    public ArrayList<ArrayList<String>> getCombinationList(ArrayList<String> list) {
+        combinationList = new ArrayList<>();
+        combinationOfNullParams(list,0);
+        return combinationList;
+    }
+
+    private ArrayList<String> combinationOfNullParams(ArrayList<String> list,int j){
+        ArrayList<String> list2=null;
+        for(int i=j;i<6;i++){
+            list2 = new ArrayList<>(list);
+            list2.set(i,"-");
+            combinationList.add(list2);
+            combinationOfNullParams(list2,j+1);
+            j++;
+        }
+        return list2;
+    }
+
 
     // take from addresses.yml. Add to enum if created new address in the file
     public enum AddressesEnum{

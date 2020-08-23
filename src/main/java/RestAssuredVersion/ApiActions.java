@@ -8,13 +8,14 @@ import java.util.Map;
 public class ApiActions extends HTTPMethods {
 
 
-    public String getDataByAddress(String address) {
+
+    public ValidatableResponse getDataByAddress(String address) {
 
         Map<String, String> queries = new HashMap<>();
         queries.put("address", address);
         ValidatableResponse response = get(queries);
 
-        return response.extract().body().asString();
+        return response;
     }
 
     public String getDataByCoordinate(String lat, String lng) {

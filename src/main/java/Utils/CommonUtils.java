@@ -19,5 +19,10 @@ public class CommonUtils {
         return str;
     }
 
+    public static String replaceSpaceToPlus(String str){
+        return  str.replaceAll(" ","+");
+    }
+
+
 
 }
