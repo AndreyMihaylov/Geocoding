@@ -3,6 +3,7 @@ package RestAssuredVersionTests;
 import RestAssuredVersion.ApiActions;
 import Utils.AddressesObj;
 import Utils.BaseTest;
+import io.qameta.allure.Description;
 import io.restassured.response.ValidatableResponse;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -14,6 +15,7 @@ public class CapitalCharAddressTest extends BaseTest {
 
     ApiActions apiActions;
 
+    @Description("Send request with upper case address with short format")
     @Test
     public void smokeRequestByAddressShortCapital() {
 
@@ -22,9 +24,10 @@ public class CapitalCharAddressTest extends BaseTest {
 
         apiActions = new ApiActions();
         ValidatableResponse response = apiActions.getDataByAddress(address);
-        Assert.assertTrue(response.extract().statusCode()==200,"Problem with short address");
+        Assert.assertTrue(response.extract().statusCode() == 200, "Problem with short address");
     }
 
+    @Description("Send request with upper case address with long format")
     @Test
     public void smokeRequestByAddressLongCapital() {
 
@@ -33,7 +36,7 @@ public class CapitalCharAddressTest extends BaseTest {
 
         apiActions = new ApiActions();
         ValidatableResponse response = apiActions.getDataByAddress(address);
-        Assert.assertTrue(response.extract().statusCode()==200,"Problem with long address");
+        Assert.assertTrue(response.extract().statusCode() == 200, "Problem with long address");
 
     }
 }

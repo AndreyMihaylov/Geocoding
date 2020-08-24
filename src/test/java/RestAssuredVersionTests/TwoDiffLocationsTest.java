@@ -3,6 +3,7 @@ package RestAssuredVersionTests;
 import RestAssuredVersion.ApiActions;
 import Utils.AddressesObj;
 import Utils.BaseTest;
+import io.qameta.allure.Description;
 import io.restassured.response.ValidatableResponse;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -14,6 +15,7 @@ public class TwoDiffLocationsTest extends BaseTest {
 
     ApiActions apiActions;
 
+    @Description("Send 2 request with different addresses and make sure responses are different")
     @Test
     public void twoDiffLocation() {
 

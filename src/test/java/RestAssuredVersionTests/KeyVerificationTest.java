@@ -3,6 +3,7 @@ package RestAssuredVersionTests;
 import RestAssuredVersion.ApiActions;
 import Utils.AddressesObj;
 import Utils.BaseTest;
+import io.qameta.allure.Description;
 import io.restassured.response.ValidatableResponse;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -15,6 +16,7 @@ public class KeyVerificationTest extends BaseTest {
 
     ApiActions apiActions;
 
+    @Description("Send request with key property is'null'")
     @Test
     public void negativeRequestWitoutKey() {
 
@@ -22,11 +24,12 @@ public class KeyVerificationTest extends BaseTest {
         String address = createString(paramsOfAddressesToList(addressesObj));
 
         apiActions = new ApiActions();
-        ValidatableResponse response = apiActions.getDataByAddressWithKey(address,null);
+        ValidatableResponse response = apiActions.getDataByAddressWithKey(address, null);
         Assert.assertTrue(response.extract().body().path("error_message").toString().contains("You must use an API key to authenticate"));
 
     }
 
+    @Description("Send request with key property is wrong")
     @Test
     public void negativeRequestWitWrongKey() {
 
