@@ -2,6 +2,7 @@ package RestAssuredVersionTests;
 
 import RestAssuredVersion.ApiActions;
 import Utils.AddressesObj;
+import Utils.BaseTest;
 import io.restassured.response.ValidatableResponse;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -9,7 +10,7 @@ import org.testng.asserts.SoftAssert;
 
 import java.util.HashMap;
 
-public class DataVerification {
+public class DataVerificationTest extends BaseTest {
     SoftAssert softAssert =new SoftAssert();
     ApiActions apiActions;
 

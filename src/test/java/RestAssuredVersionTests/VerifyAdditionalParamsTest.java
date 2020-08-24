@@ -2,6 +2,7 @@ package RestAssuredVersionTests;
 
 import RestAssuredVersion.ApiActions;
 import Utils.AddressesObj;
+import Utils.BaseTest;
 import io.restassured.response.ValidatableResponse;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -16,7 +17,7 @@ import static Utils.AddressesObj.paramsOfAddressesToList;
 import static Utils.CommonUtils.createString;
 import static Utils.CommonUtils.getRandomString;
 
-public class VerifyAdditionalParams {
+public class VerifyAdditionalParamsTest extends BaseTest {
 
     ApiActions apiActions;
     ApiActions.Language[] languages = ApiActions.Language.values();

@@ -2,6 +2,7 @@ package RestAssuredVersionTests;
 
 import RestAssuredVersion.ApiActions;
 import Utils.AddressesObj;
+import Utils.BaseTest;
 import io.restassured.response.ValidatableResponse;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -11,7 +12,7 @@ import java.util.Random;
 
 import static Utils.CommonUtils.getRandomString;
 
-public class NegativeLocationsTest {
+public class NegativeLocationsTest extends BaseTest {
 
     ApiActions apiActions;
 

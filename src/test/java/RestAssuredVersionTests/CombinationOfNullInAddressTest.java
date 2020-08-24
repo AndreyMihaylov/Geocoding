@@ -2,6 +2,7 @@ package RestAssuredVersionTests;
 
 import RestAssuredVersion.ApiActions;
 import Utils.AddressesObj;
+import Utils.BaseTest;
 import io.restassured.response.ValidatableResponse;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
@@ -11,7 +12,7 @@ import java.util.ArrayList;
 import static Utils.AddressesObj.paramsOfAddressesToList;
 import static Utils.CommonUtils.createString;
 
-public class CombinationOfNullInAddress {
+public class CombinationOfNullInAddressTest extends BaseTest {
 
     ApiActions apiActions;
 //    AddressLocationAddressVerificationTest ala;
