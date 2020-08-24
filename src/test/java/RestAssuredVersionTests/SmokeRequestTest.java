@@ -4,6 +4,7 @@ import RestAssuredVersion.ApiActions;
 import Utils.AddressesObj;
 import Utils.AddressesObj.AddressesEnum;
 import Utils.BaseTest;
+import io.qameta.allure.Description;
 import io.restassured.response.ValidatableResponse;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -15,6 +16,7 @@ public class SmokeRequestTest extends BaseTest {
 
     ApiActions apiActions;
 
+    @Description("Smoke request with short address")
     @Test
     public void smokeRequestByAddressShort() {
 
@@ -25,6 +27,8 @@ public class SmokeRequestTest extends BaseTest {
         ValidatableResponse response = apiActions.getDataByAddress(address);
         Assert.assertTrue(response.extract().statusCode()==200,"Problem with short address");
     }
+
+    @Description("Smoke request with long address")
 
     @Test
     public void smokeRequestByAddressLong() {
@@ -38,6 +42,7 @@ public class SmokeRequestTest extends BaseTest {
 
     }
 
+    @Description("Smoke request with location")
     @Test
     public void smokeRequestByLocation() {
 
@@ -46,7 +51,7 @@ public class SmokeRequestTest extends BaseTest {
 
         String lat = addressesObj.getLat();
         String lng = addressesObj.getLng();
-        ValidatableResponse response = apiActions.getDataByCoordinate(lat,lng);
+        ValidatableResponse response = apiActions.getDataByCoordinates(lat,lng);
         Assert.assertTrue(response.extract().statusCode()==200,"Problem with location of address");
 
     }

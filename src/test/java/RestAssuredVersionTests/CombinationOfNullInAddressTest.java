@@ -3,6 +3,7 @@ package RestAssuredVersionTests;
 import RestAssuredVersion.ApiActions;
 import Utils.AddressesObj;
 import Utils.BaseTest;
+import io.qameta.allure.Description;
 import io.restassured.response.ValidatableResponse;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
@@ -15,8 +16,9 @@ import static Utils.CommonUtils.createString;
 public class CombinationOfNullInAddressTest extends BaseTest {
 
     ApiActions apiActions;
-//    AddressLocationAddressVerificationTest ala;
 
+    //    AddressLocationAddressVerificationTest ala;
+    @Description("Create list of possible combination 'null' in address. Could be use for other tests")
     @Test
     public void combinationOfNullInAddress() {
 //        ala = new AddressLocationAddressVerificationTest();
@@ -30,7 +32,7 @@ public class CombinationOfNullInAddressTest extends BaseTest {
 
             String address2 = createString(ad);
             ValidatableResponse response = apiActions.getDataByAddress(address2);
-            softAssert.assertTrue(response.extract().statusCode()==200, "Problem with address "+ address2);
+            softAssert.assertTrue(response.extract().statusCode() == 200, "Problem with address " + address2);
 //            ala.addressLocationAddressVerification(response,address2);
         });
 //        ala.softAssert.assertAll();
