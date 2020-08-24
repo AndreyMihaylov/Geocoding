@@ -2,6 +2,7 @@ package RestAssuredVersionTests;
 
 import RestAssuredVersion.ApiActions;
 import Utils.AddressesObj;
+import Utils.BaseTest;
 import io.restassured.response.ValidatableResponse;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
@@ -11,7 +12,7 @@ import java.util.concurrent.ThreadLocalRandom;
 import static Utils.AddressesObj.paramsOfAddressesToList;
 import static Utils.CommonUtils.createString;
 
-public class BoundTest {
+public class BoundTest extends BaseTest{
     SoftAssert softAssert = new SoftAssert();
     ApiActions apiActions;
     ValidatableResponse response;

@@ -2,6 +2,7 @@ package RestAssuredVersionTests;
 
 import RestAssuredVersion.ApiActions;
 import Utils.AddressesObj;
+import Utils.BaseTest;
 import io.restassured.response.ValidatableResponse;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -9,7 +10,7 @@ import org.testng.annotations.Test;
 import static Utils.AddressesObj.paramsOfAddressesToList;
 import static Utils.CommonUtils.createString;
 
-public class TwoDiffLocationsTest {
+public class TwoDiffLocationsTest extends BaseTest {
 
     ApiActions apiActions;
 

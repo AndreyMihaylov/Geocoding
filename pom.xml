@@ -190,4 +190,83 @@
         </resources>
     </build>
 
+    <profiles>
+        <profile>
+            <id>AddressLocationAddressVerificationTest</id>
+            <properties>
+                <testNGSuite>src/test/TestSuits/AddressLocationAddressVerificationTest.xml</testNGSuite>
+            </properties>
+        </profile>
+
+        <profile>
+            <id>AllTests</id>
+            <properties>
+                <testNGSuite>src/test/TestSuits/AllTests.xml</testNGSuite>
+            </properties>
+        </profile>
+
+        <profile>
+            <id>BoundTest</id>
+            <properties>
+                <testNGSuite>src/test/TestSuits/BoundTest.xml</testNGSuite>
+            </properties>
+        </profile>
+
+        <profile>
+            <id>CapitalCharAddressTest</id>
+            <properties>
+                <testNGSuite>src/test/TestSuits/CapitalCharAddressTest.xml</testNGSuite>
+            </properties>
+        </profile>
+
+        <profile>
+            <id>CombinationOfNullInAddressTest.xml</id>
+            <properties>
+                <testNGSuite>src/test/TestSuits/CombinationOfNullInAddressTest.xml</testNGSuite>
+            </properties>
+        </profile>
+
+        <profile>
+            <id>DataVerificationTest</id>
+            <properties>
+                <testNGSuite>src/test/TestSuits/DataVerificationTest.xml</testNGSuite>
+            </properties>
+        </profile>
+
+        <profile>
+            <id>KeyVerificationTest</id>
+            <properties>
+                <testNGSuite>src/test/TestSuits/KeyVerificationTest.xml</testNGSuite>
+            </properties>
+        </profile>
+
+        <profile>
+            <id>NegativeLocationsTest</id>
+            <properties>
+                <testNGSuite>src/test/TestSuits/NegativeLocationsTest.xml</testNGSuite>
+            </properties>
+        </profile>
+
+        <profile>
+            <id>SmokeRequestTest</id>
+            <properties>
+                <testNGSuite>src/test/TestSuits/TestSuits/SmokeRequestTest.xml</testNGSuite>
+            </properties>
+        </profile>
+
+        <profile>
+            <id>TwoDiffLocationsTest</id>
+            <properties>
+                <testNGSuite>src/test/TestSuits/TwoDiffLocationsTest.xml</testNGSuite>
+            </properties>
+        </profile>
+
+        <profile>
+            <id>VerifyAdditionalParamsTest</id>
+            <properties>
+                <testNGSuite>src/test/TestSuits/VerifyAdditionalParamsTest.xml</testNGSuite>
+            </properties>
+        </profile>
+    </profiles>
+
 </project>

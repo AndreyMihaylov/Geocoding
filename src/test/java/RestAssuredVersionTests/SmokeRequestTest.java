@@ -3,6 +3,7 @@ package RestAssuredVersionTests;
 import RestAssuredVersion.ApiActions;
 import Utils.AddressesObj;
 import Utils.AddressesObj.AddressesEnum;
+import Utils.BaseTest;
 import io.restassured.response.ValidatableResponse;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -10,7 +11,7 @@ import org.testng.annotations.Test;
 import static Utils.CommonUtils.createString;
 import static Utils.AddressesObj.paramsOfAddressesToList;
 
-public class SmokeRequestTest {
+public class SmokeRequestTest extends BaseTest {
 
     ApiActions apiActions;
 

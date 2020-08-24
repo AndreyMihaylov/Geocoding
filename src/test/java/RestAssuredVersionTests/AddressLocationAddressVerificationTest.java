@@ -2,6 +2,7 @@ package RestAssuredVersionTests;
 
 import RestAssuredVersion.ApiActions;
 import Utils.AddressesObj;
+import Utils.BaseTest;
 import io.restassured.response.ValidatableResponse;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -12,7 +13,7 @@ import java.util.HashMap;
 import static Utils.AddressesObj.paramsOfAddressesToList;
 import static Utils.CommonUtils.createString;
 
-public class AddressLocationAddressVerificationTest {
+public class AddressLocationAddressVerificationTest extends BaseTest {
 
     SoftAssert softAssert = new SoftAssert();
     ApiActions apiActions = new ApiActions();

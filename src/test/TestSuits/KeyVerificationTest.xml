@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="KeyVerificationTest">
+
+    <test name = "KeyVerificationTest" >
+        <classes >
+            <class name="RestAssuredVersionTests.KeyVerificationTest">
+            </class>
+        </classes>
+    </test>
+</suite>
