@@ -1,12 +1,9 @@
 package RestAssuredVersion;
 
-import io.restassured.path.json.JsonPath;
 import io.restassured.response.ValidatableResponse;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class ApiActions extends HTTPMethods {
 
@@ -14,9 +11,16 @@ public class ApiActions extends HTTPMethods {
     public ValidatableResponse getDataByAddress(String address) {
         Map<String, String> queries = new HashMap<>();
         queries.put("address", address);
-        ValidatableResponse response = get(queries);
 
-        return response;
+        return get(queries);
+    }
+
+    public ValidatableResponse getDataByAddressWithKey(String address,String key) {
+        Map<String, String> queries = new HashMap<>();
+        queries.put("address", address);
+        queries.put("key", key);
+
+        return get(queries);
     }
 
     public ValidatableResponse getDataByCoordinate(String lat, String lng) {
@@ -24,18 +28,52 @@ public class ApiActions extends HTTPMethods {
                 && lng != null && !lat.isEmpty()
                 && !lng.isEmpty()) {
             if (lat.toCharArray()[lat.length() - 1] != ',') {
-                lat = new StringBuilder(lat).append(',').toString();
+                lat = lat + ',';
 
             }
         }
         Map<String, String> queries = new HashMap<>();
         queries.put("latlng", lat + lng);
-        ValidatableResponse response = get(queries);
 
-        return response;
+        return get(queries);
     }
-//    public getDataBy(){}
-//    public getDataBy(){}
+
+    public boolean verifyMainComponentsLocation(HashMap<String,?> fields){
+        MainFields[] list = MainFields.values();
+        return fields.keySet().containsAll(Arrays.asList(list).stream().map(Enum::toString).collect(Collectors.toList()));
+    }
+
+    public boolean verifyBoundComponentLocation(HashMap<String,?> fields){
+        ArrayList<String> types = (ArrayList<String>) fields.get("types");
+        HashMap<String,?> geometry = (HashMap<String, ?>) fields.get("geometry");
+        boolean street = types.stream().anyMatch(e -> e.equals("street_address"));
+        boolean contains = geometry.keySet().contains("bounds");
+
+        return street != contains;
+
+    }
+    public ValidatableResponse getDataByAddressLang(String address, String lang) {
+        Map<String, String> queries = new HashMap<>();
+        queries.put("address", address);
+        queries.put("language", lang);
+
+        return get(queries);
+    }
+    public ValidatableResponse getDataByCoordinateLang(String lat, String lng, String lang) {
+        if (lat != null
+                && lng != null && !lat.isEmpty()
+                && !lng.isEmpty()) {
+            if (lat.toCharArray()[lat.length() - 1] != ',') {
+                lat = lat + ',';
+
+            }
+        }
+        Map<String, String> queries = new HashMap<>();
+        queries.put("latlng", lat + lng);
+        queries.put("language", lang);
+
+        return get(queries);
+    }
 //    public getDataBy(){}
 //    public getDataBy(){}
 //    public getDataBy(){}
@@ -74,4 +112,50 @@ public class ApiActions extends HTTPMethods {
 
         return coordinates;
     }
+
+    enum MainFields{
+        address_components, formatted_address, geometry, place_id, types
+    }
+
+    public enum Language{
+        af,		ja,
+        sq,		kn,
+        am,		kk,
+        ar,		km,
+        hy,		ko,
+        az,		ky,
+        eu,		lo,
+        be,		lv,
+        bn,		lt,
+        bs,		mk,
+        bg,		ms,
+        my,		ml,
+        ca,		mr,
+        zh,		mn,
+     	pl,
+        hr,		pt,
+        cs,
+        da,
+        nl,		pa,
+        ro,
+        ru,
+        sr,
+        et,		si,
+        fa,		sk,
+        fi,		sl,
+        fil,	es,
+        fr,
+        		sw,
+        gl,		sv,
+        ka,		ta,
+        de,		te,
+        el,		th,
+        gu,		tr,
+        iw,		uk,
+        hi,		ur,
+        hu,		uz,
+        is,		vi,
+        id,		zu,
+        it
+        }
 }
