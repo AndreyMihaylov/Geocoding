@@ -1,5 +1,6 @@
 package RestAssuredVersion;
 
+import io.qameta.allure.Step;
 import io.restassured.response.ValidatableResponse;
 
 import java.util.*;
@@ -7,7 +8,7 @@ import java.util.stream.Collectors;
 
 public class ApiActions extends HTTPMethods {
 
-
+    @Step("Send request to get data by address")
     public ValidatableResponse getDataByAddress(String address) {
         Map<String, String> queries = new HashMap<>();
         queries.put("address", address);
@@ -15,6 +16,7 @@ public class ApiActions extends HTTPMethods {
         return get(queries);
     }
 
+    @Step("Send request to get data by address, need to provide a key")
     public ValidatableResponse getDataByAddressWithKey(String address,String key) {
         Map<String, String> queries = new HashMap<>();
         queries.put("address", address);
@@ -23,7 +25,8 @@ public class ApiActions extends HTTPMethods {
         return get(queries);
     }
 
-    public ValidatableResponse getDataByCoordinate(String lat, String lng) {
+    @Step("Send request to get data by location")
+    public ValidatableResponse getDataByCoordinates(String lat, String lng) {
         if (lat != null
                 && lng != null && !lat.isEmpty()
                 && !lng.isEmpty()) {
@@ -38,11 +41,13 @@ public class ApiActions extends HTTPMethods {
         return get(queries);
     }
 
+    @Step("Verify main components are present in response")
     public boolean verifyMainComponentsLocation(HashMap<String,?> fields){
         MainFields[] list = MainFields.values();
         return fields.keySet().containsAll(Arrays.asList(list).stream().map(Enum::toString).collect(Collectors.toList()));
     }
 
+    @Step("Verify 'bound' field is present in response or not")
     public boolean verifyBoundComponentLocation(HashMap<String,?> fields){
         ArrayList<String> types = (ArrayList<String>) fields.get("types");
         HashMap<String,?> geometry = (HashMap<String, ?>) fields.get("geometry");
@@ -52,6 +57,8 @@ public class ApiActions extends HTTPMethods {
         return street != contains;
 
     }
+
+    @Step("Send request to get data by address, by language")
     public ValidatableResponse getDataByAddressLang(String address, String lang) {
         Map<String, String> queries = new HashMap<>();
         queries.put("address", address);
@@ -59,7 +66,9 @@ public class ApiActions extends HTTPMethods {
 
         return get(queries);
     }
-    public ValidatableResponse getDataByCoordinateLang(String lat, String lng, String lang) {
+
+    @Step("Send request to get data by coordinates, by language")
+    public ValidatableResponse getDataByCoordinatesLang(String lat, String lng, String lang) {
         if (lat != null
                 && lng != null && !lat.isEmpty()
                 && !lng.isEmpty()) {
@@ -74,10 +83,8 @@ public class ApiActions extends HTTPMethods {
 
         return get(queries);
     }
-//    public getDataBy(){}
-//    public getDataBy(){}
-//    public getDataBy(){}
 
+    @Step("Get all place IDs from response")
     public ArrayList<String> getPlaceIds(ValidatableResponse response) {
         ArrayList<String> placeIds = new ArrayList<>();
         int size = response.extract().body().path("results[0].size()");
@@ -88,6 +95,7 @@ public class ApiActions extends HTTPMethods {
         return placeIds;
     }
 
+    @Step("Get first place ID from response")
     public String getPlaceIdFirst(ValidatableResponse response) {
        if(getPlaceIds(response).size()==0){
            return "";
@@ -95,6 +103,7 @@ public class ApiActions extends HTTPMethods {
         return getPlaceIds(response).get(0);
     }
 
+    @Step("Get 4 corner coordinates from response based on 'viewport' field")
     public HashMap<String, Double> getBoundCoordinates(ValidatableResponse response) {
         HashMap<String, Double> boundCoordinates = new HashMap<>();
         boundCoordinates.put("lat1", response.extract().body().path("results.geometry.viewport.northeast.lat[0]"));
@@ -105,6 +114,7 @@ public class ApiActions extends HTTPMethods {
         return boundCoordinates;
     }
 
+    @Step("Get coordinates of address")
     public HashMap<String, Double> getCoordinates(ValidatableResponse response) {
         HashMap<String, Double> coordinates = new HashMap<>();
         coordinates.put("lat", response.extract().body().path("results.geometry.location.lat[0]"));

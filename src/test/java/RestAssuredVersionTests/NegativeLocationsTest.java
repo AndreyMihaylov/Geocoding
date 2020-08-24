@@ -3,6 +3,7 @@ package RestAssuredVersionTests;
 import RestAssuredVersion.ApiActions;
 import Utils.AddressesObj;
 import Utils.BaseTest;
+import io.qameta.allure.Description;
 import io.restassured.response.ValidatableResponse;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -18,6 +19,7 @@ public class NegativeLocationsTest extends BaseTest {
 
     String error_message = "Invalid request. Invalid 'latlng' parameter.";
 
+    @Description("Send request with 'latlng' key without comma between 'lat' and 'lng' ")
     @Test
     public void smokeRequestByLocationNoComma() {
 
@@ -26,11 +28,12 @@ public class NegativeLocationsTest extends BaseTest {
 
         String lat = addressesObj.getLat();
         String lng = addressesObj.getLng();
-        ValidatableResponse response = apiActions.getDataByCoordinate(lat, lng);
+        ValidatableResponse response = apiActions.getDataByCoordinates(lat, lng);
         Assert.assertTrue(response.extract().statusCode() == 200, "Problem with location of address");
 
     }
 
+    @Description("Send request with 'latlng' key with spaces between 'lat' and 'lng' ")
     @Test
     public void smokeRequestByLocationWithSpace() {
 
@@ -39,11 +42,12 @@ public class NegativeLocationsTest extends BaseTest {
 
         String lat = addressesObj.getLat();
         String lng = addressesObj.getLng();
-        ValidatableResponse response = apiActions.getDataByCoordinate("   " + lat + "   ", "   " + lng + "   ");
+        ValidatableResponse response = apiActions.getDataByCoordinates("   " + lat + "   ", "   " + lng + "   ");
         Assert.assertTrue(response.extract().statusCode() == 200, "Problem with location of address");
 
     }
 
+    @Description("Send request with 'latlng' key with extra digits")
     @Test
     public void smokeRequestByLocationWithExtraDigits() {
 
@@ -51,15 +55,17 @@ public class NegativeLocationsTest extends BaseTest {
         AddressesObj addressesObj = new AddressesObj(AddressesObj.TypeOfAddress.LONG, AddressesObj.AddressesEnum.ADDRESS1);
         apiActions = new ApiActions();
 
-        String lat = addressesObj.getLat()+ String.valueOf(Math.abs(random.nextLong())) + String.valueOf(Math.abs(random.nextLong()));
-        String lng = addressesObj.getLng()+ String.valueOf(Math.abs(random.nextLong())) + String.valueOf(Math.abs(random.nextLong()));
-        ValidatableResponse response = apiActions.getDataByCoordinate(lat, lng);
+        String lat = addressesObj.getLat() + String.valueOf(Math.abs(random.nextLong())) + String.valueOf(Math.abs(random.nextLong()));
+        String lng = addressesObj.getLng() + String.valueOf(Math.abs(random.nextLong())) + String.valueOf(Math.abs(random.nextLong()));
+        ValidatableResponse response = apiActions.getDataByCoordinates(lat, lng);
         lat = addressesObj.getLat();
         lng = addressesObj.getLng();
-        ValidatableResponse response2 = apiActions.getDataByCoordinate(lat, lng);
+        ValidatableResponse response2 = apiActions.getDataByCoordinates(lat, lng);
         Assert.assertTrue(response.extract().body().asString().equals(response2.extract().body().asString()), "Problem with location of address");
 
     }
+
+    @Description("Send request with 'latlng' key with non-digits")
     @Test
     public void smokeRequestByLocationNonDigit() {
 
@@ -67,25 +73,26 @@ public class NegativeLocationsTest extends BaseTest {
 
         String lat = getRandomString(5);
         String lng = getRandomString(7);
-        ValidatableResponse response = apiActions.getDataByCoordinate(lat, lng);
+        ValidatableResponse response = apiActions.getDataByCoordinates(lat, lng);
         Assert.assertTrue(response.extract().statusCode() == 400
                 && response.extract().body().path("error_message").equals(error_message), "Problem with location of address");
 
     }
 
+    @Description("Send request with 'latlng' key with Out Of Boundary coordinates")
     @Test
     public void smokeRequestByLocationOutOfBoundary() {
 
         SoftAssert softAssert = new SoftAssert();
         apiActions = new ApiActions();
-        ValidatableResponse response1 = apiActions.getDataByCoordinate("-91", "100");
-        ValidatableResponse response2 = apiActions.getDataByCoordinate("91", "100");
-        ValidatableResponse response3 = apiActions.getDataByCoordinate("70", "181");
-        ValidatableResponse response4 = apiActions.getDataByCoordinate("70", "-181");
-        ValidatableResponse response5 = apiActions.getDataByCoordinate("90", "-101");
-        ValidatableResponse response6 = apiActions.getDataByCoordinate("-90", "-101");
-        ValidatableResponse response7 = apiActions.getDataByCoordinate("70", "0");
-        ValidatableResponse response8 = apiActions.getDataByCoordinate("70", "-180");
+        ValidatableResponse response1 = apiActions.getDataByCoordinates("-91", "100");
+        ValidatableResponse response2 = apiActions.getDataByCoordinates("91", "100");
+        ValidatableResponse response3 = apiActions.getDataByCoordinates("70", "181");
+        ValidatableResponse response4 = apiActions.getDataByCoordinates("70", "-181");
+        ValidatableResponse response5 = apiActions.getDataByCoordinates("90", "-101");
+        ValidatableResponse response6 = apiActions.getDataByCoordinates("-90", "-101");
+        ValidatableResponse response7 = apiActions.getDataByCoordinates("70", "0");
+        ValidatableResponse response8 = apiActions.getDataByCoordinates("70", "-180");
 
         softAssert.assertTrue(response1.extract().statusCode() == 400
                 && response1.extract().body().path("error_message").equals(error_message), "Problem with out of 'lat' location");
@@ -103,13 +110,14 @@ public class NegativeLocationsTest extends BaseTest {
         softAssert.assertAll();
     }
 
+    @Description("Send request with 'latlng' key is empty or 'null'")
     @Test
     public void smokeRequestByLocationEmpty() {
 
         apiActions = new ApiActions();
 
-        ValidatableResponse response = apiActions.getDataByCoordinate("", "");
-        ValidatableResponse response2 = apiActions.getDataByCoordinate(null, null);
+        ValidatableResponse response = apiActions.getDataByCoordinates("", "");
+        ValidatableResponse response2 = apiActions.getDataByCoordinates(null, null);
         Assert.assertTrue(response.extract().statusCode() == 400
                 && response.extract().body().path("error_message").equals("Invalid request. Missing the 'address', 'components', 'latlng' or 'place_id' parameter."), "Problem with empty locations");
         Assert.assertTrue(response2.extract().statusCode() == 400
