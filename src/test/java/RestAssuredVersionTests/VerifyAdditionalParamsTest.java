@@ -3,12 +3,12 @@ package RestAssuredVersionTests;
 import RestAssuredVersion.ApiActions;
 import Utils.AddressesObj;
 import Utils.BaseTest;
+import io.qameta.allure.Description;
 import io.restassured.response.ValidatableResponse;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -23,6 +23,7 @@ public class VerifyAdditionalParamsTest extends BaseTest {
     ApiActions.Language[] languages = ApiActions.Language.values();
     SoftAssert softAssert = new SoftAssert();
 
+    @Description("Smoke request with long address and language (all possible)")
     @Test
     public void smokeRequestByAddressLongLang() {
 
@@ -38,6 +39,7 @@ public class VerifyAdditionalParamsTest extends BaseTest {
         softAssert.assertAll();
     }
 
+    @Description("Smoke request with location and language (all possible)")
     @Test
     public void smokeRequestByLocationLang() {
 
@@ -48,13 +50,14 @@ public class VerifyAdditionalParamsTest extends BaseTest {
         String lng = addressesObj.getLng();
 
         languagesList.forEach(l -> {
-            ValidatableResponse response = apiActions.getDataByCoordinateLang(lat, lng, l);
+            ValidatableResponse response = apiActions.getDataByCoordinatesLang(lat, lng, l);
             softAssert.assertTrue(response.extract().statusCode() == 200, "Problem with location of address with language");
         });
 
         softAssert.assertAll();
     }
 
+    @Description("Smoke request with location and language is null")
     @Test
     public void smokeRequestByLocationLangNull() {
 
@@ -64,11 +67,12 @@ public class VerifyAdditionalParamsTest extends BaseTest {
         String lat = addressesObj.getLat();
         String lng = addressesObj.getLng();
 
-        ValidatableResponse response = apiActions.getDataByCoordinateLang(lat, lng, null);
+        ValidatableResponse response = apiActions.getDataByCoordinatesLang(lat, lng, null);
         Assert.assertTrue(response.extract().statusCode() == 200, "Problem with location of address with wrong language");
 
     }
 
+    @Description("Smoke request with location and language is wrong")
     @Test
     public void smokeRequestByLocationLanWrong() {
 
@@ -76,7 +80,7 @@ public class VerifyAdditionalParamsTest extends BaseTest {
         apiActions = new ApiActions();
         String lat = addressesObj.getLat();
         String lng = addressesObj.getLng();
-        ValidatableResponse response = apiActions.getDataByCoordinateLang(lat, lng, getRandomString(5));
+        ValidatableResponse response = apiActions.getDataByCoordinatesLang(lat, lng, getRandomString(5));
         Assert.assertTrue(response.extract().statusCode() == 200, "Problem with location of address with 'null' language");
 
     }
