@@ -5,6 +5,7 @@ import java.util.HashMap;
 
 import static Utils.CommonUtils.addComma;
 
+@SuppressWarnings("unchecked")
 public class AddressesObj extends YmlReader {
 
     private HashMap<?, ?> addresses;
@@ -87,7 +88,7 @@ public class AddressesObj extends YmlReader {
     }
 
     private HashMap<String, ?> getDataByAddress(AddressesEnum addressesEnum) {
-        return (HashMap<String, HashMap<String, String>>) addresses.get(addressesEnum.toString().toLowerCase());
+        return (HashMap<String, HashMap<String, String>>) addresses.get(addressesEnum.getValue());
     }
 
     private String getNumberFromFile() {
@@ -134,7 +135,6 @@ public class AddressesObj extends YmlReader {
         HashMap<String, String> zip = (HashMap<String, String>) address.get("location");
         return zip.get("lng");
     }
-
 
     private String getNumberFromFileShort() {
         HashMap<String, String> number = (HashMap<String, String>) address.get("number");
@@ -200,7 +200,17 @@ public class AddressesObj extends YmlReader {
 
     // take from addresses.yml. Add to enum if created new address in the file
     public enum AddressesEnum {
-        ADDRESS1, ADDRESS2
+        ADDRESS1("address1"), ADDRESS2("address2");
+
+        private final String value;
+
+        AddressesEnum(String value) {
+            this.value = value;
+        }
+
+        public String getValue() {
+            return value;
+        }
     }
 
     public enum TypeOfAddress {

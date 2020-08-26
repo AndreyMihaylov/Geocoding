@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
 
 public class ApiActions extends HTTPMethods {
 
-    @Step("Send request to get data by address")
+    @Step("Send request to get data by address: {address}")
     public ValidatableResponse getDataByAddress(String address) {
         Map<String, String> queries = new HashMap<>();
         queries.put("address", address);
@@ -16,7 +16,7 @@ public class ApiActions extends HTTPMethods {
         return get(queries);
     }
 
-    @Step("Send request to get data by address, need to provide a key")
+    @Step("Send request to get data by address, need to provide a key : {key}")
     public ValidatableResponse getDataByAddressWithKey(String address,String key) {
         Map<String, String> queries = new HashMap<>();
         queries.put("address", address);
@@ -25,7 +25,7 @@ public class ApiActions extends HTTPMethods {
         return get(queries);
     }
 
-    @Step("Send request to get data by location")
+    @Step("Send request to get data by location 'lat': {lat} 'lng' : {lng}")
     public ValidatableResponse getDataByCoordinates(String lat, String lng) {
         if (lat != null
                 && lng != null && !lat.isEmpty()
@@ -41,12 +41,13 @@ public class ApiActions extends HTTPMethods {
         return get(queries);
     }
 
-    @Step("Verify main components are present in response")
+    @Step("Verify main components: {fields} are present in response ")
     public boolean verifyMainComponentsLocation(HashMap<String,?> fields){
         MainFields[] list = MainFields.values();
-        return fields.keySet().containsAll(Arrays.asList(list).stream().map(Enum::toString).collect(Collectors.toList()));
+        return fields.keySet().containsAll(Arrays.stream(list).map(MainFields::getValue).collect(Collectors.toList()));
     }
 
+    @SuppressWarnings("unchecked")
     @Step("Verify 'bound' field is present in response or not")
     public boolean verifyBoundComponentLocation(HashMap<String,?> fields){
         ArrayList<String> types = (ArrayList<String>) fields.get("types");
@@ -58,7 +59,7 @@ public class ApiActions extends HTTPMethods {
 
     }
 
-    @Step("Send request to get data by address, by language")
+    @Step("Send request to get data by address, by language: {lang}")
     public ValidatableResponse getDataByAddressLang(String address, String lang) {
         Map<String, String> queries = new HashMap<>();
         queries.put("address", address);
@@ -67,7 +68,7 @@ public class ApiActions extends HTTPMethods {
         return get(queries);
     }
 
-    @Step("Send request to get data by coordinates, by language")
+    @Step("Send request to get data by coordinates({lat}, {lng}), by language: {lang}")
     public ValidatableResponse getDataByCoordinatesLang(String lat, String lng, String lang) {
         if (lat != null
                 && lng != null && !lat.isEmpty()
@@ -124,48 +125,22 @@ public class ApiActions extends HTTPMethods {
     }
 
     enum MainFields{
-        address_components, formatted_address, geometry, place_id, types
+        ADDRESS_COMPONENTS("address_components"), FORMATTED_ADDRESS("formatted_address"), GEOMETRY("geometry"), PLACE_ID("place_id"), TYPES("types");
+
+        final private String value;
+
+        MainFields(String value) {
+            this.value = value;
+        }
+
+        public String getValue() {
+            return value;
+        }
+
     }
 
     public enum Language{
-        af,		ja,
-        sq,		kn,
-        am,		kk,
-        ar,		km,
-        hy,		ko,
-        az,		ky,
-        eu,		lo,
-        be,		lv,
-        bn,		lt,
-        bs,		mk,
-        bg,		ms,
-        my,		ml,
-        ca,		mr,
-        zh,		mn,
-     	pl,
-        hr,		pt,
-        cs,
-        da,
-        nl,		pa,
-        ro,
-        ru,
-        sr,
-        et,		si,
-        fa,		sk,
-        fi,		sl,
-        fil,	es,
-        fr,
-        		sw,
-        gl,		sv,
-        ka,		ta,
-        de,		te,
-        el,		th,
-        gu,		tr,
-        iw,		uk,
-        hi,		ur,
-        hu,		uz,
-        is,		vi,
-        id,		zu,
-        it
+        af,ja,sq,kn,am,kk,ar,km, hy,ko,az,ky,eu,lo,be,lv,bn,lt, bs,mk,bg,ms,my,ml,ca,mr,zh,mn,pl,hr,pt,cs,da,nl,
+        pa,ro,ru,sr,et,si,fa,sk,fi,sl,fil,es,fr,sw,gl,sv,ka,ta,de,te,el,th,gu,tr,iw,uk,hi,ur,hu,uz,is,vi,id,zu,it
         }
 }

@@ -45,7 +45,7 @@ public class VerifyAdditionalParamsTest extends BaseTest {
 
         AddressesObj addressesObj = new AddressesObj(AddressesObj.TypeOfAddress.LONG, AddressesObj.AddressesEnum.ADDRESS1);
         apiActions = new ApiActions();
-        List<String> languagesList = Arrays.stream(languages).map(Enum::toString).collect(Collectors.toList());
+        List<String> languagesList = Arrays.stream(languages).map(Enum::name).collect(Collectors.toList());
         String lat = addressesObj.getLat();
         String lng = addressesObj.getLng();
 
@@ -63,7 +63,7 @@ public class VerifyAdditionalParamsTest extends BaseTest {
 
         AddressesObj addressesObj = new AddressesObj(AddressesObj.TypeOfAddress.LONG, AddressesObj.AddressesEnum.ADDRESS1);
         apiActions = new ApiActions();
-        List<String> languagesList = Arrays.stream(languages).map(Enum::toString).collect(Collectors.toList());
+        List<String> languagesList = Arrays.stream(languages).map(Enum::name).collect(Collectors.toList());
         String lat = addressesObj.getLat();
         String lng = addressesObj.getLng();
 
