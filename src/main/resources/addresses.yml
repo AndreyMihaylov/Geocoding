@@ -1,0 +1,48 @@
+address1:
+  number:
+    long_name: "1600"
+    short_name: "1600"
+  street:
+    long_name: "Amphitheatre Parkway"
+    short_name: "Amphitheatre Pkwy"
+  city:
+    long_name: "Mountain View"
+    short_name: "Mountain View"
+  county:
+    long_name: "Santa Clara County"
+    short_name: "Santa Clara County"
+  state:
+    long_name: "California"
+    short_name: "CA"
+  country:
+    long_name: "United States"
+    short_name: "US"
+  zip:
+    long_name: "94043"
+  location:
+    lat: "37.4237754"
+    lng: "-122.0853195"
+address2:
+  number:
+    long_name: "1601"
+    short_name: "1601"
+  street:
+    long_name: "Amphitheatre Parkway"
+    short_name: "Amphitheatre Pkwy"
+  city:
+    long_name: "Mountain View"
+    short_name: "Mountain View"
+  county:
+    long_name: "Santa Clara County"
+    short_name: "Santa Clara County"
+  state:
+    long_name: "California"
+    short_name: "CA"
+  country:
+    long_name: "United States"
+    short_name: "US"
+  zip:
+    long_name: "94043"
+  location:
+    lat: "37.4240702"
+    lng: "-122.085874"

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="AllTests">
+    <suite-files>
+        <suite-file path="AddressLocationAddressVerificationTest.xml" />
+        <suite-file path="BoundTest.xml" />
+        <suite-file path="CapitalCharAddressTest.xml" />
+        <suite-file path="CombinationOfNullInAddressTest.xml" />
+        <suite-file path="DataVerificationTest.xml" />
+        <suite-file path="KeyVerificationTest.xml" />
+        <suite-file path="NegativeLocationsTest.xml" />
+        <suite-file path="SmokeRequestTest.xml" />
+        <suite-file path="TwoDiffLocationsTest.xml" />
+        <suite-file path="VerifyAdditionalParamsTest.xml" />
+    </suite-files>
+
+</suite>
